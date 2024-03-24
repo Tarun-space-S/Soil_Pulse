@@ -3,7 +3,7 @@
 <head>
 <title>Get Price</title>
 <link rel="stylesheet" href="../static/css/about.css">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/price.css') }}">
+<link rel="stylesheet" href="../static/css/price.css">
 
 </head>
 <body >
@@ -17,7 +17,7 @@
         </ul>
     </div>
     </section>
-<h1>Get Price</h1>
+<h1 style="text-align: center;margin: 20px;">Get Price</h1>
 <div id="pbody">
   <form action="/predict_price" method="POST" onsubmit="return validateForm()">
     <label for="district">Select District</label>
@@ -58,7 +58,7 @@
 
     <br>
     <br>
-    <button type="submit" class="Iprimary" id="getRecommendationButton" href="">Get Price</button>
+    <button type="submit" class="Iprimary" id="getRecommendationButton" href="" style="font-weight: bold;">Get Price</button>
   </form>
   <script>
     function validateForm() {

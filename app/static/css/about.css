@@ -63,6 +63,7 @@ button.normal{
 
 body {
     width: 100%;
+    min-height: 100vh;
     background-color:bisque;
   }
 #header {
@@ -233,7 +234,8 @@ footer{
     flex-wrap:wrap;
     justify-content: space-between;
     background-color: #0C2C04;
-    position:sticky;
+    width:100%;
+    bottom:0;
   }
   
   footer .col{

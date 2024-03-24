@@ -3,7 +3,7 @@
 <head>
   <title>Dataset</title>
   <link rel="stylesheet" href="../static/css/about.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/market.css') }}">
+  <link rel="stylesheet" href="../static/css/market.css">
   <style>
   #get_status,
   #get_data {
@@ -87,7 +87,7 @@
   
   {% if complete == 1 %}
     <!-- Show the "Train Model" button when the condition is met -->
-    <a href="/display"><button class="Iprimary">Train Model</button></a>
+    <a href="/display" style="all:unset"><button class="Iprimary">Train Model</button></a>
   {% endif %}
   <script>
     const button = document.querySelector("#get_data");
