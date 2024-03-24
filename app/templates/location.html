@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loc.css') }}">
+</head>
+<body>
+    {% extends 'base.html' %}
+    {% block content %}
+    <div id="locbody" style="background-image: url('../static/images/img2.jpg');">
+    <button id="myButton" class="lbutton">Get Location</button>
+    <div id="locationData"></div> 
+    <div id="weatherData"></div> 
+    <script>
+        const button = document.querySelector("#myButton");
+        const locationDataDiv = document.getElementById("locationData"); // Get the location data div
+        const weatherDataDiv = document.getElementById("weatherData"); // Get the weather data div
+        const status=0;
+          // Replace with your actual API key
+        button.addEventListener("click", () => {
+            navigator.geolocation.getCurrentPosition(position => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+
+                // Get location data from Nominatim Geocoding API
+                const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`;
+
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        const locationInfo = data.display_name;
+                        const locationString = `Latitude: ${latitude}, Longitude: ${longitude}, Location: ${locationInfo}`;
+                        const address=locationInfo
+                        locationDataDiv.textContent = locationString;
+
+                        // Send latitude and longitude to Python
+                        fetch('/get_location', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ latitude,longitude,address })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                document.getElementById("res").innerHTML = data.message;
+                                if(data.status=='1'){
+                                    const button = document.getElementById("proceedButton");
+                                    const button2 = document.getElementById("manualEntryButton");
+                                    button.innerHTML = "Proceed";
+                                    button2.innerHTML = "Enter Manually";
+                                    button.onclick = function() {
+                                        location.href='/weather';
+                                    };
+                                }
+                            })
+                            })
+                    .catch(() => {
+                        locationDataDiv.textContent = "Error fetching data from API";
+                    });
+            }, error => {
+                locationDataDiv.textContent = "Error getting location data";
+            });
+        });
+      
+    </script>
+    <h1 id="res" style="text-decoration-color: chartreuse;align-self: center;"></h1>
+    <div  id="result" class="container">
+        <!-- <button class="btn btn-primary" onclick="location.href='/';">Home</button> -->
+        <button style="align-self: center;" class="lbutton" id="proceedButton"></button>
+        <div class="divider" style="margin-right: 20px;"><span style="color: black;"></span></div>
+        <button id="manualEntryButton" class="lbutton"></button>
+    </div>
+</div>
+<script>
+     manualEntryButton.addEventListener("click", () => {
+            window.location.href = '/loc3';
+            });
+</script>
+</body>
+{% endblock %}
+</html>
