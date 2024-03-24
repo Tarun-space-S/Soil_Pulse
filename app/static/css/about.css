@@ -233,6 +233,7 @@ footer{
     flex-wrap:wrap;
     justify-content: space-between;
     background-color: #0C2C04;
+    position:sticky;
   }
   
   footer .col{
