@@ -47,7 +47,7 @@ def train_model():
     complete=0
     message='Please wait while we are training the model for you'
     dir = response_data['dataset_loc'] 
-    # dir=r'dataset\KK_19_08-Dec-2022_08-Nov-2023.csv'
+    # dir=r'dataset\KK_22_29-Mar-2023 29-Feb-2024.csv'
     df = pd.read_csv(dir)
     data=df.copy()
     message='Dataset Loaded'
@@ -196,7 +196,11 @@ def pred_price(district,market,commodity,variety,grade,date):
     for i in en_att:
         with open('models/price/le_'+i+'.pkl', 'rb') as f:
             leo = pickle.load(f) 
-        input_data[i] = leo.transform(input_data[i])
+        try:
+            input_data[i] = leo.transform(input_data[i])
+        except ValueError:
+            # Handle unseen labels
+            input_data[i] = -1
 
     fine=input_data.loc[0]
     fine=fine.to_dict()

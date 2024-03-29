@@ -18,6 +18,7 @@ app.register_blueprint(train)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    #kkklsldkslds
     return render_template("hello.html")
 
 
