@@ -85,7 +85,7 @@ function checkNitrogenValue() {
     <div id="Ibody">
         {% extends 'base.html' %}
     {% block content %}
-    <div class="Icontainer my-3 mt-3">
+    <div class="Icontainer my-3 mt-3" style="width: 70%;">
         <form action="/predict" method="POST">
            
             <div class="form-group">
@@ -142,10 +142,10 @@ function checkNitrogenValue() {
         {% if response_data['result'] %}
         <br>
         <br>
-        <div class="custom-container">
-          <div class="custom-card mx-auto">
-            <img src="{{url_for('static', filename='/images/img.jpg')}}" class="custom-card-img-top" alt="...">
-            <div class="custom-card-body text-center">
+        <div class="custom-container" style="background-color: rgb(48, 48, 48);width: 40%;">
+          <div class="custom-card mx-auto" style="background-color: rgb(48, 48, 48);" >
+            <img src="{{url_for('static', filename='/images/img.jpg')}}" class="custom-card-img-top" alt="..." style="border-radius: 10%;">
+            <div class="custom-card-body text-center" style="background-color: rgb(48, 48, 48);">
               <h5 class="custom-card-title">Recommend Crop for cultivation is:</h5>
               <p class="custom-card-text">{{ response_data['result'] }}</p>
             </div>

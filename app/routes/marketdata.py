@@ -8,6 +8,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.edge.options import Options
 from selenium.webdriver.support.ui import Select
+from selenium.common.exceptions import WebDriverException
 
 
 dataset_message='Please Click the Get Data Button'
@@ -103,6 +104,8 @@ def market_data():
     })
 
     driver = webdriver.Edge(options=options)
+    driver.maximize_window()
+    driver.implicitly_wait(10)
     dataset_message = 'driver initiated successfully'
     url ="https://agmarknet.gov.in/Default.aspx"
 
@@ -120,8 +123,10 @@ def market_data():
     export_button.click()
     dataset_message = 'Dataset Aquired set to Download'
     time.sleep(10)
-
-    driver.close()
+    try:
+        driver.close()
+    except WebDriverException:
+        dataset_message = 'Driver already closed or not responding'
     dataset_message = 'Driver Teminated'
     xls_file = target_directory + "\Agmarknet_Price_Report.xls"
     raw = pd.read_html(xls_file)
