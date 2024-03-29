@@ -103,6 +103,8 @@ def market_data():
     })
 
     driver = webdriver.Edge(options=options)
+    driver.maximize_window()
+    driver.implicitly_wait(10)
     dataset_message = 'driver initiated successfully'
     url ="https://agmarknet.gov.in/Default.aspx"
 
